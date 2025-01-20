@@ -14,27 +14,32 @@ import com.example.layeredarchitecture.model.ItemDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PlaceOrderBOImpl {
+public class PlaceOrderBOImpl implements PlaceOrderBO {
     CustomerDAO customerDAO = new CustomerDAOImpl();
     ItemDAO itemDAO = new ItemDAOImpl();
     OrderDAO orderDAO = new OrderDAOImpl();
     OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
-
+    @Override
     public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
         return customerDAO.search(id);
     }
+    @Override
     public boolean existItem(String code) throws SQLException, ClassNotFoundException {
         return itemDAO.exist(code);
     }
+    @Override
     public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         return customerDAO.exist(id);
     }
+    @Override
     public String generateNewOrderId() throws SQLException, ClassNotFoundException {
         return orderDAO.generateNewId();
     }
+    @Override
     public ArrayList<CustomerDTO> getAllCustomerIds() throws SQLException, ClassNotFoundException {
         return customerDAO.getAll();
     }
+    @Override
     public ArrayList<ItemDTO> getAllItemIds() throws SQLException, ClassNotFoundException {
         return itemDAO.getAll();
     }
