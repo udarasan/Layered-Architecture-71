@@ -50,6 +50,8 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
+    PlaceOrderBOImpl placeOrderBO = new PlaceOrderBOImpl();
+
     public void initialize() throws SQLException, ClassNotFoundException {
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -98,7 +100,6 @@ public class PlaceOrderFormController {
                         if (!existCustomer(newValue + "")) {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
-                        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
                         CustomerDTO customerDTO=placeOrderBO.searchCustomer(newValue+"");
 
                         txtCustomerName.setText(customerDTO.getName());
@@ -126,7 +127,6 @@ public class PlaceOrderFormController {
                     if (!existItem(newItemCode + "")) {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
-                    PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
                     ItemDTO item=placeOrderBO.searchItem(newItemCode + "");
 
                     txtDescription.setText(item.getDescription());
@@ -172,19 +172,15 @@ public class PlaceOrderFormController {
     }
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-
-        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
         return placeOrderBO.existItem(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
         return placeOrderBO.existCustomer(id);
     }
 
     public String generateNewOrderId() {
         try {
-            PlaceOrderBOImpl placeOrderBO = new PlaceOrderBOImpl();
             return placeOrderBO.generateNewOrderId();
             } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
@@ -196,7 +192,6 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
             ArrayList<CustomerDTO> list=placeOrderBO.getAllCustomerIds();
             for (CustomerDTO customerDTO : list) {
                 cmbCustomerId.getItems().add(customerDTO.getId());
@@ -212,7 +207,6 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-            PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
             ArrayList<ItemDTO>itemDTOS=placeOrderBO.getAllItemIds();
             for (ItemDTO itemDTO : itemDTOS) {
                 cmbItemCode.getItems().add(itemDTO.getCode());
@@ -310,7 +304,6 @@ public class PlaceOrderFormController {
     }
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
-        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
         try {
             return placeOrderBO.saveOrder(orderId,orderDate,customerId,orderDetails);
         } catch (SQLException e) {

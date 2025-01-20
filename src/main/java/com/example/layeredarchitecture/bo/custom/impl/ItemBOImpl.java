@@ -9,7 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemBOImpl implements ItemBO {
+
     ItemDAO itemDAO = new ItemDAOImpl();
+
     @Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         return itemDAO.getAll();
