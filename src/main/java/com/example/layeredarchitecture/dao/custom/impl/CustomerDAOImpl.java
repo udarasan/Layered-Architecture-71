@@ -64,4 +64,8 @@ public class CustomerDAOImpl implements CustomerDAO {
                 rst.getString("name"),rst.getString("address"));
     }
 
+    @Override
+    public void uniqueMethodForCustomer() {
+
+    }
 }
