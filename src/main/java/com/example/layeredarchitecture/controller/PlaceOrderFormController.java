@@ -50,6 +50,17 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
+    //design patterns -gang of four
+    //elegant solution to repeating problems
+        //creational design patterns - object creation
+                //ex - singleton design pattern
+                //ex - factory design pattern
+        //structural design patterns - object relationship
+                //ex - facade design pattern
+        //behavioral design patterns - object communication
+                //ex - strategy design pattern
+
+
     PlaceOrderBOImpl placeOrderBO = new PlaceOrderBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
