@@ -143,8 +143,8 @@ public class ManageCustomersFormController {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
-                CustomerDAO customerDAO=new CustomerDAOImpl();
-                customerDAO.save(new CustomerDTO(id,name,address));
+                CustomerBOImpl customerBO=new CustomerBOImpl();
+                customerBO.save(new CustomerDTO(id,name,address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -161,8 +161,8 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
 
-                CustomerDAO customerDAO=new CustomerDAOImpl();
-                customerDAO.update(new CustomerDTO(id,name,address));
+                CustomerBOImpl customerBO=new CustomerBOImpl();
+                customerBO.update(new CustomerDTO(id,name,address));
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
             } catch (ClassNotFoundException e) {
@@ -180,8 +180,8 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-          CustomerDAO customerDAO=new CustomerDAOImpl();
-          return customerDAO.exist(id);
+          CustomerBOImpl customerBO=new CustomerBOImpl();
+          return customerBO.exist(id);
     }
 
 
@@ -209,8 +209,8 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            CustomerDAO customerDAO = new CustomerDAOImpl();
-            return customerDAO.generateNewId();
+            CustomerBOImpl customerBO=new CustomerBOImpl();
+            return customerBO.generateNewId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
         } catch (ClassNotFoundException e) {
