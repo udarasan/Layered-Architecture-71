@@ -1,6 +1,6 @@
-package com.example.layeredarchitecture.model;
+package com.example.layeredarchitecture.entity;
 
-public class CustomDTO {
+public class Custom {
     private int id;
     private String name;
     private int OrderId;
