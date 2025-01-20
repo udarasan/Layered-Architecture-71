@@ -1,5 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.bo.CustomerBO;
 import com.example.layeredarchitecture.bo.CustomerBOImpl;
 import com.example.layeredarchitecture.dao.custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.custom.impl.CustomerDAOImpl;
@@ -70,7 +71,7 @@ public class ManageCustomersFormController {
         tblCustomers.getItems().clear();
         /*Get all customers*/
         try {
-            CustomerBOImpl customerBO=new CustomerBOImpl();
+            CustomerBO customerBO=new CustomerBOImpl();
             ArrayList<CustomerDTO> allCustomers = customerBO.getAll();
             for(CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -143,7 +144,7 @@ public class ManageCustomersFormController {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
-                CustomerBOImpl customerBO=new CustomerBOImpl();
+                CustomerBO customerBO=new CustomerBOImpl();
                 customerBO.save(new CustomerDTO(id,name,address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -161,7 +162,7 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
 
-                CustomerBOImpl customerBO=new CustomerBOImpl();
+                CustomerBO customerBO=new CustomerBOImpl();
                 customerBO.update(new CustomerDTO(id,name,address));
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
@@ -180,7 +181,7 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-          CustomerBOImpl customerBO=new CustomerBOImpl();
+        CustomerBO customerBO=new CustomerBOImpl();
           return customerBO.exist(id);
     }
 
@@ -193,8 +194,8 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-            CustomerDAO customerDAO = new CustomerDAOImpl();
-            customerDAO.delete(id);
+            CustomerBO customerBO=new CustomerBOImpl();
+            customerBO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
@@ -209,7 +210,7 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            CustomerBOImpl customerBO=new CustomerBOImpl();
+            CustomerBO customerBO=new CustomerBOImpl();
             return customerBO.generateNewId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
