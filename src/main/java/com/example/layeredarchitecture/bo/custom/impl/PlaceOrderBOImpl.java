@@ -44,4 +44,8 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     public ArrayList<ItemDTO> getAllItemIds() throws SQLException, ClassNotFoundException {
         return itemDAO.getAll();
     }
+    @Override
+    public ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException {
+        return itemDAO.search(code);
+    }
 }

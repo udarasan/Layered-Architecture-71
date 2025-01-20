@@ -13,4 +13,5 @@ public interface PlaceOrderBO {
      String generateNewOrderId() throws SQLException, ClassNotFoundException;
      ArrayList<CustomerDTO> getAllCustomerIds() throws SQLException, ClassNotFoundException ;
      ArrayList<ItemDTO> getAllItemIds() throws SQLException, ClassNotFoundException;
+     ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException;
 }

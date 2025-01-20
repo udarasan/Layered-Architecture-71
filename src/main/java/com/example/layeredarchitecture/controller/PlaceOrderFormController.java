@@ -392,8 +392,8 @@ public class PlaceOrderFormController {
 
     public ItemDTO findItem(String code) {
         try {
-            ItemDAOImpl itemDAO=new ItemDAOImpl();
-            return itemDAO.search(code);
+            PlaceOrderBOImpl placeOrderBOImpl = new PlaceOrderBOImpl();
+            return placeOrderBOImpl.searchItem(code);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find the Item " + code, e);
         } catch (ClassNotFoundException e) {
