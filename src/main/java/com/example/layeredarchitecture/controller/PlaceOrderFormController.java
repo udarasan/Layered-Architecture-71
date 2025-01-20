@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.bo.CustomerBOImpl;
+import com.example.layeredarchitecture.bo.ItemBOImpl;
 import com.example.layeredarchitecture.bo.PlaceOrderBOImpl;
 import com.example.layeredarchitecture.dao.custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.custom.impl.CustomerDAOImpl;
@@ -213,8 +214,8 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
-            ArrayList<CustomerDTO> list=customerDAO.getAll();
+            PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
+            ArrayList<CustomerDTO> list=placeOrderBO.getAllCustomerIds();
             for (CustomerDTO customerDTO : list) {
                 cmbCustomerId.getItems().add(customerDTO.getId());
             }
@@ -229,8 +230,8 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
-            ArrayList<ItemDTO>itemDTOS=itemDAO.getAll();
+            PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
+            ArrayList<ItemDTO>itemDTOS=placeOrderBO.getAllItemIds();
             for (ItemDTO itemDTO : itemDTOS) {
                 cmbItemCode.getItems().add(itemDTO.getCode());
             }
