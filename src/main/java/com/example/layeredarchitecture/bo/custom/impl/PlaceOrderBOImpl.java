@@ -7,6 +7,8 @@ import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.dto.CustomerDTO;
 import com.example.layeredarchitecture.dto.ItemDTO;
 import com.example.layeredarchitecture.dto.OrderDetailDTO;
+import com.example.layeredarchitecture.entity.Customer;
+import com.example.layeredarchitecture.entity.Item;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,7 +27,8 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
     @Override
     public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
-        return customerDAO.search(id);
+        Customer customer = customerDAO.search(id);
+        return new CustomerDTO(customer.getId(), customer.getName(), customer.getAddress());
     }
     @Override
     public boolean existItem(String code) throws SQLException, ClassNotFoundException {
@@ -41,15 +44,26 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
     }
     @Override
     public ArrayList<CustomerDTO> getAllCustomerIds() throws SQLException, ClassNotFoundException {
-        return customerDAO.getAll();
+        ArrayList<CustomerDTO> customerDTOs = new ArrayList<>();
+        ArrayList<Customer> customers = customerDAO.getAll();
+        for (Customer customer : customers) {
+            customerDTOs.add(new CustomerDTO(customer.getId(), customer.getName(), customer.getAddress()));
+        }
+        return customerDTOs;
     }
     @Override
     public ArrayList<ItemDTO> getAllItemIds() throws SQLException, ClassNotFoundException {
-        return itemDAO.getAll();
+        ArrayList<ItemDTO> itemDTOArrayList = new ArrayList<>();
+        ArrayList<Item>items=itemDAO.getAll();
+        for(Item item:items){
+            itemDTOArrayList.add(new ItemDTO(item.getCode(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()));
+        }
+        return itemDTOArrayList;
     }
     @Override
     public ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException {
-        return itemDAO.search(code);
+        Item item=itemDAO.search(code);
+        return new ItemDTO(item.getCode(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand());
     }
 
     @Override
