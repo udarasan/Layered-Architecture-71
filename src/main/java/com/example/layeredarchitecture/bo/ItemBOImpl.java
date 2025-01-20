@@ -8,20 +8,25 @@ import com.example.layeredarchitecture.model.ItemDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemBOImpl {
+public class ItemBOImpl implements ItemBO {
     ItemDAO itemDAO = new ItemDAOImpl();
+    @Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         return itemDAO.getAll();
     }
+    @Override
     public void save(ItemDTO items) throws SQLException, ClassNotFoundException {
         itemDAO.save(items);
     }
+    @Override
     public void update(ItemDTO items) throws SQLException, ClassNotFoundException {
         itemDAO.update(items);
     }
+    @Override
     public boolean exist(String code) throws SQLException, ClassNotFoundException {
         return itemDAO.exist(code);
     }
+    @Override
     public void delete(String id) throws SQLException, ClassNotFoundException {
         itemDAO.delete(id);
     }
