@@ -26,8 +26,9 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void save(OrderDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(OrderDTO dto) throws SQLException, ClassNotFoundException {
 
+        return false;
     }
 
     @Override

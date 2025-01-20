@@ -12,6 +12,7 @@ import com.example.layeredarchitecture.dao.custom.impl.OrderDetailDAOImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
 import java.sql.Connection;
@@ -58,13 +59,31 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
     @Override
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
+        /*Connection connection = null;
+        boolean b2=orderDAO.save(new OrderDTO(orderId,orderDate,customerId));
+        if (!b2){
+            connection.rollback();
+            connection.setAutoCommit(true);
+            return false;
+        }
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
+        for (OrderDetailDTO orderDetail : orderDetails) {
+            boolean b3=orderDetailDAO.save(orderDetail);
+            if (!b3){
+                connection.rollback();
+                connection.setAutoCommit(true);
+                return false;
+            }
+            ItemDTO itemDTO=new ItemDTO();
+        }*/
+
         /*Transaction*/
         Connection connection = null;
         try {
             connection = DBConnection.getDbConnection().getConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
             stm.setString(1, orderId);
-            /*if order id already exist*/
+            //if order id already exist
             if (stm.executeQuery().next()) {
                 return false;
             }

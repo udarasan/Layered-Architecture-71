@@ -26,7 +26,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public void save(ItemDTO items) throws SQLException, ClassNotFoundException {
+    public boolean save(ItemDTO items) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
                pstm.setString(1, items.getCode());
@@ -34,6 +34,7 @@ public class ItemDAOImpl implements ItemDAO {
                pstm.setBigDecimal(3, items.getUnitPrice());
                pstm.setInt(4, items.getQtyOnHand());                pstm.executeUpdate();
 
+        return false;
     }
 
     @Override
