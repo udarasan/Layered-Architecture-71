@@ -13,7 +13,7 @@ public class ItemTM  {
     public ItemTM() {
     }
 
-    public ItemTM(String code, String description, BigDecimal unitPrice, int qtyOnHand) {
+    public ItemTM(String code, String description,BigDecimal unitPrice, int qtyOnHand) {
         this.code = code;
         this.description = description;
         this.unitPrice = unitPrice;
