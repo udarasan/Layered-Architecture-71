@@ -1,5 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.bo.CustomerBOImpl;
+import com.example.layeredarchitecture.bo.PlaceOrderBOImpl;
 import com.example.layeredarchitecture.dao.custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.custom.impl.CustomerDAOImpl;
 import com.example.layeredarchitecture.dao.custom.impl.ItemDAOImpl;
@@ -109,8 +111,8 @@ public class PlaceOrderFormController {
                         pstm.setString(1, newValue + "");
                         ResultSet rst = pstm.executeQuery();
                         rst.next();*/
-                        CustomerDAO customerDAO = new CustomerDAOImpl();
-                        CustomerDTO customerDTO=customerDAO.search(newValue+"");
+                        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
+                        CustomerDTO customerDTO=placeOrderBO.searchCustomer(newValue+"");
 
                         txtCustomerName.setText(customerDTO.getName());
                     } catch (SQLException e) {
@@ -188,19 +190,19 @@ public class PlaceOrderFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
 
-        ItemDAOImpl itemDAO = new ItemDAOImpl();
-        return itemDAO.exist(code);
+        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
+        return placeOrderBO.existItem(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        CustomerDAOImpl customerDAO = new CustomerDAOImpl();
-        return customerDAO.exist(id);
+        PlaceOrderBOImpl placeOrderBO=new PlaceOrderBOImpl();
+        return placeOrderBO.existCustomer(id);
     }
 
     public String generateNewOrderId() {
         try {
-            OrderDAOImpl orderDAO=new OrderDAOImpl();
-            return orderDAO.generateNewId();
+            PlaceOrderBOImpl placeOrderBO = new PlaceOrderBOImpl();
+            return placeOrderBO.generateNewOrderId();
             } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
         } catch (ClassNotFoundException e) {
